@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { Route } from 'react-router-dom'
 class BooksApp extends React.Component {
 
 
@@ -17,7 +17,12 @@ class BooksApp extends React.Component {
   render() {
     return (
           <div className="App">
-
+            <Route exact path="/" render={() => (
+                <div></div>
+              )} />
+            <Route path="/search" render={() => (
+                <div></div>
+            )} />
           </div>
     )
   }
