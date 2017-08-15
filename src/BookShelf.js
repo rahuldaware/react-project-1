@@ -10,7 +10,9 @@ render() {
           books.map((book) => {
             return(
               <li key={book.id}>
-                <Books book={book} />
+                <Books
+                  book={book}
+                  onUpdateShelf={this.props.onUpdateShelf}/>
               </li>
             )
           })

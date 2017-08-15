@@ -24,8 +24,17 @@ class BooksApp extends React.Component {
     })
   }
 
-
-
+  onUpdateShelf = (bookId, newShelf) => {
+    const bookList = this.state.books;
+    bookList.forEach((book) => {
+      if(book.id === bookId) {
+        book.shelf = newShelf;
+      }
+      this.setState({
+        books : bookList
+      });
+    })
+  }
   render() {
     return (
           <div className="App">
@@ -35,7 +44,9 @@ class BooksApp extends React.Component {
                     <h1>MyReads</h1>
                   </div>
                   <div>
-                    <BookShelves books={this.state.books}/>
+                    <BookShelves
+                      books={this.state.books}
+                      onUpdateShelf = {this.onUpdateShelf}/>
                   </div>
                 </div>
               )} />
