@@ -16,7 +16,8 @@ class BooksApp extends React.Component {
      * pages, as well as provide a good URL they can bookmark and share.
      */
     showSearchPage: true,
-    books: []
+    books: [],
+    searchBooks: []
   }
 
   componentDidMount() {
@@ -39,6 +40,14 @@ class BooksApp extends React.Component {
       });
     })
   }
+  onSearch = (query) => {
+  let q = query.trim();
+    if(q.length) {
+      BooksAPI.search(query, 100).then(results => {
+        console.log(results)
+      })
+    }
+  }
   render() {
     return (
           <div className="App">
@@ -55,7 +64,7 @@ class BooksApp extends React.Component {
                 </div>
               )} />
             <Route path="/search" render={({history}) => (
-                <Search />
+                <Search onSearch={this.onSearch}/>
             )} />
             <div className="open-search">
               <Link to="/search">Add Book</Link>
