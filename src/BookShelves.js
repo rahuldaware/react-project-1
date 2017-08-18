@@ -3,13 +3,13 @@ import BookShelf from './BookShelf'
 
 class BookShelves extends React.Component {
   filterShelf = (bookMap, shelfName) => {
-    let bookList = []
-    let filteredBooks = []
+    let bookList = new Map()
     bookMap.forEach((value, key, map) => {
-      bookList.push(value)
+      if(value.shelf === shelfName) {
+        bookList.set(value.id, value)
+      }
     })
-    filteredBooks = bookList.filter((book) => {return book.shelf === shelfName})
-    return filteredBooks
+    return bookList;
   }
   render(){
     return (

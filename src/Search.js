@@ -1,5 +1,6 @@
 import React from 'react'
 import {Link } from 'react-router-dom';
+import BookShelf from './BookShelf';
 
 class Search extends React.Component {
 
@@ -18,7 +19,9 @@ class Search extends React.Component {
             </div>
           </div>
           <div className="search-books-results">
-            <ol className="books-grid"></ol>
+            <BookShelf
+              books={this.props.books}
+              onUpdateShelf={this.props.onUpdateShelf} />
           </div>
         </div>
       </div>

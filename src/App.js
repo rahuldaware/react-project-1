@@ -37,6 +37,23 @@ class BooksApp extends React.Component {
 
   onUpdateShelf = (bookId, newShelf) => {
     const bookList = this.state.books;
+    if(!bookList.has(bookId)){
+      BooksAPI.get(bookId).then((book) =>{
+        BooksAPI.update(book, newShelf).then(
+          BooksAPI.getAll().then(books => {
+            let bookMap = new Map()
+            books.forEach((book) => {
+              bookMap.set(book.id, book)
+            })
+            this.setState(
+              {
+                books: bookMap
+              });
+          })
+        )
+      }
+      );
+    }
     bookList.forEach((book) => {
       if(book.id === bookId) {
         book.shelf = newShelf;
@@ -48,7 +65,23 @@ class BooksApp extends React.Component {
   }
   onSearch = (query) => {
     let q = query.trim()
-    console.log(q)
+    const searchBookList = new Map();
+    if(q) {
+      BooksAPI.search(q, 100).then(results => {
+          if(results && results.length > 0) {
+            results.forEach(result => {
+              result.shelf = "none";
+            searchBookList.set(result.id, result)
+          })
+        }
+        else {
+          this.state.searchBooks.clear()
+        }
+        this.setState({
+          searchBooks : searchBookList
+        });
+      })
+    }
   }
   render() {
     return (
@@ -68,7 +101,8 @@ class BooksApp extends React.Component {
             <Route path="/search" render={({history}) => (
                 <Search
                   onSearch={this.onSearch}
-                  books = {this.state.searchBooks}/>
+                  books = {this.state.searchBooks}
+                  onUpdateShelf = {this.onUpdateShelf}/>
             )} />
             <div className="open-search">
               <Link to="/search">Add Book</Link>
