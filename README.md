@@ -1,4 +1,4 @@
-## BooksShelf App
+## BookShelf App
 ### Owner : Rahul Daware
 
 This project is the first project and a part of submission for React NanoDegree Program at Udacity.
