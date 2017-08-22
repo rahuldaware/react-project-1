@@ -66,11 +66,12 @@ class BooksApp extends React.Component {
   onSearch = (query) => {
     let q = query.trim()
     const searchBookList = new Map();
+    let books = this.state.books;
     if(q) {
       BooksAPI.search(q, 100).then(results => {
           if(results && results.length > 0) {
             results.forEach(result => {
-              result.shelf = "none";
+              result.shelf = books.has(result.id) ? books.get(result.id).shelf : "none"
             searchBookList.set(result.id, result)
           })
         }
